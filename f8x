@@ -420,7 +420,7 @@ CS_File="CobaltStrike4.3.zip"
 CS_Version="CobaltStrike4.3"
 CS45_File="CobaltStrike4.5.zip"
 CS45_Version="CobaltStrike4.5"
-CS491_File="CobaltStrike4.9.1.zip"
+CS491_File="CS4.9.1.zip"
 CS491_Version="CobaltStrike4.9.1"
 
 # 加载自定义版本配置
@@ -4804,7 +4804,7 @@ Pentest_CobaltStrike491_Install(){
     then
         Echo_ALERT "$CS491_Version is already installed in $P_Dir/$CS491_Version"
     else
-        cd $P_Dir && rm -f $CS491_File > /dev/null 2>&1 && $Proxy_OK wget -O $CS491_File ${GitProxy2}https://github.com/No-Github/Archive/releases/download/1.0.6/$CS491_File ${wget_option} || Echo_ERROR "$CS491_File download failed, please check if the network is reachable, proxychains4 configuration is correct"
+        cd $P_Dir && rm -f $CS491_File > /dev/null 2>&1 && $Proxy_OK wget -O $CS491_File ${GitProxy2}https://github.com/mrx325/Archive/releases/download/cs/$CS491_File ${wget_option} || Echo_ERROR "$CS491_File download failed, please check if the network is reachable, proxychains4 configuration is correct"
         rm -rf $CS491_Version > /dev/null 2>&1 && unzip $CS491_File > /dev/null 2>&1 && rm -f $CS491_File > /dev/null 2>&1
         cd $P_Dir/$CS491_Version && chmod +x teamserver > /dev/null 2>&1
         rm -f cobaltstrike.store > /dev/null 2>&1
