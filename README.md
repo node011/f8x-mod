@@ -4,13 +4,9 @@ Start
 
 Download
 
-    Download via CF Workers [Recommend]
-        wget : wget -O f8x https://f8x.io/
-        curl : curl -o f8x https://f8x.io/
-
     github raw
-        wget : wget -O f8x https://raw.githubusercontent.com/ffffffff0x/f8x/main/f8x
-        curl : curl -o f8x https://raw.githubusercontent.com/ffffffff0x/f8x/main/f8x
+        wget : wget -O f8x https://raw.githubusercontent.com/node011/f8x-mod/main/f8x
+        curl : curl -o f8x https://raw.githubusercontent.com/node011/f8x-mod/main/f8x
 
     Subsequent releases will not be updated, so it is recommended not to download old versions of f8x from releases.
 
@@ -20,9 +16,9 @@ bash f8x -h
 
 Recommended to add to environment variables
 
-    wget : wget -O f8x https://f8x.io/ && mv --force f8x /usr/local/bin/f8x && chmod +x /usr/local/bin/f8x
+    wget : wget -O f8x https://raw.githubusercontent.com/node011/f8x-mod/main/f8x && mv --force f8x /usr/local/bin/f8x && chmod +x /usr/local/bin/f8x
         f8x -h
-    curl : curl -o f8x https://f8x.io/ && mv --force f8x /usr/local/bin/f8x && chmod +x /usr/local/bin/f8x
+    curl : curl -o f8x https://raw.githubusercontent.com/node011/f8x-mod/main/f8x && mv --force f8x /usr/local/bin/f8x && chmod +x /usr/local/bin/f8x
         f8x -h
 
 System Dependency
