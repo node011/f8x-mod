@@ -420,6 +420,8 @@ CS_File="CobaltStrike4.3.zip"
 CS_Version="CobaltStrike4.3"
 CS45_File="CobaltStrike4.5.zip"
 CS45_Version="CobaltStrike4.5"
+CS491_File="CobaltStrike4.9.1.zip"
+CS491_Version="CobaltStrike4.9.1"
 
 # 加载自定义版本配置
 if test -e f8x_version.sh
@@ -4790,6 +4792,64 @@ Pentest_CobaltStrike45_Install(){
     fi
 
 }
+
+# ===================== Install CobaltStrike 4.9.1 =====================
+Pentest_CobaltStrike491_Install(){
+
+    JDK_Check
+
+    name="CobaltStrike4.9.1"
+
+    if test -d $P_Dir/$CS491_Version
+    then
+        Echo_ALERT "$CS491_Version is already installed in $P_Dir/$CS491_Version"
+    else
+        cd $P_Dir && rm -f $CS491_File > /dev/null 2>&1 && $Proxy_OK wget -O $CS491_File ${GitProxy2}https://github.com/No-Github/Archive/releases/download/1.0.6/$CS491_File ${wget_option} || Echo_ERROR "$CS491_File download failed, please check if the network is reachable, proxychains4 configuration is correct"
+        rm -rf $CS491_Version > /dev/null 2>&1 && unzip $CS491_File > /dev/null 2>&1 && rm -f $CS491_File > /dev/null 2>&1
+        cd $P_Dir/$CS491_Version && chmod +x teamserver > /dev/null 2>&1
+        rm -f cobaltstrike.store > /dev/null 2>&1
+        Echo_INFOR "Successfully installed $CS491_Version in the $P_Dir/$CS491_Version" || Echo_ERROR3
+    fi
+
+    if test -e $P_Dir/$CS491_Version/genCrossC2.Linux
+    then
+        Echo_ALERT "genCrossC2.Linux file already exists "
+    else
+        cd $P_Dir/$CS491_Version && $Proxy_OK wget ${GitProxy}https://github.com/gloxec/CrossC2/releases/download/$CrossC2_Ver/genCrossC2.Linux ${wget_option} && Echo_INFOR "Downloaded CrossC2 in the $P_Dir/$CS491_Version/genCrossC2.Linux " || Echo_ERROR "CrossC2 installation failed"
+        chmod +x genCrossC2.Linux > /dev/null 2>&1
+    fi
+
+    Echo_INFOR "CrossC2 command:\n\033[0m\033[1;32mcd $P_Dir/$CS491_Version/ && ./genCrossC2.Linux <IP> <port> ./.cobaltstrike.beacon_keys null Linux x64 <filename> "
+
+    if test -e $P_Dir/$CS491_Version/cobaltstrike.store
+    then
+        Echo_ALERT "cobaltstrike.store file has been generated"
+    else
+        cd $P_Dir/$CS491_Version
+        keytool -keystore ./cobaltstrike.store -storepass sUp3r@dm1n -keypass sUp3r@dm1n -genkey -keyalg RSA -alias aliyun -dname "CN=aliyun, OU=aliyun, O=aliyun, L=aliyun, S=aliyun, C=aliyun" > /dev/null 2>&1
+
+        if test -e $P_Dir/$CS491_Version/cobaltstrike.store
+        then
+            Echo_ALERT "keytool 工具使用正常"
+            rm -f cobaltstrike.store > /dev/null 2>&1
+        else
+            Echo_ERROR "keytool 工具使用出现问题,正在重新配置 jenv"
+            jenv_config "/usr/local/java/$jdk8_Version"
+            jenv local 1.8
+            keytool -keystore ./cobaltstrike.store -storepass sUp3r@dm1n -keypass sUp3r@dm1n -genkey -keyalg RSA -alias aliyun -dname "CN=aliyun, OU=aliyun, O=aliyun, L=aliyun, S=aliyun, C=aliyun" > /dev/null 2>&1
+
+            if test -e $P_Dir/$CS491_Version/cobaltstrike.store
+            then
+                Echo_ALERT "keytool 工具使用正常"
+                rm -f cobaltstrike.store > /dev/null 2>&1
+            else
+                Echo_ERROR "keytool 工具使用出现问题,请手动配置 jenv 环境"
+            fi
+        fi
+    fi
+
+}
+
 
 # ===================== Install Responder =====================
 Pentest_Responder_Install(){
