@@ -8351,7 +8351,20 @@ cs45_Install(){
     Echo_INFOR "Please create a new bash session and run the following command:(Default Port 50050)\n\033[0m\033[1;32mcd $P_Dir/$CS45_Version/ && nohup ./teamserver $CS_IP $CS_Pass & "
 
 }
+# -cs491
+cs491_Install(){
 
+    Pentest_Base_Install
+
+    echo -e "\033[1;33m\n>> Installing $CS491_Version\n\033[0m"
+    Pentest_CobaltStrike491_Install
+    echo -e "\033[5;33m\nPlease enter your teamserver server IP\033[0m" && read -r input
+    CS_IP=$input
+    echo -e "\033[5;33m\nPlease enter your teamserver server password(Special characters should be preceded by a backslash \"\\\" to escape them)\033[0m" && read -r input
+    CS_Pass=$input
+    Echo_INFOR "Please create a new bash session and run the following command:(Default Port 50050)\n\033[0m\033[1;32mcd $P_Dir/$CS45_Version/ && nohup ./teamserver $CS_IP $CS_Pass & "
+
+}
 # -interactsh
 interactsh_Install(){
 
